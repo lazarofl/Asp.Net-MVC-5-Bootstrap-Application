@@ -1,4 +1,6 @@
-﻿using NHibernate;
+﻿using asp_net_mvc_bootstrap.Models.Concrete;
+using NHibernate;
+using NHibernate.Linq;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,18 +9,24 @@ using System.Web.Mvc;
 
 namespace asp_net_mvc_bootstrap.Controllers
 {
-    public class HomeController : Controller
+    public class HomeController : BaseController
     {
-        public ISession session;
-
-        public HomeController(ISession _session)
+        public HomeController(ISession session)
+            : base(session)
         {
-            this.session = _session;
+
         }
 
         public ActionResult Index()
         {
-            return View();
+            IList<Item> itens;
+            using (var transaction = session.BeginTransaction())
+            {
+                itens = session.Query<Item>().ToList();
+                transaction.Commit();
+            }
+
+            return View(itens);
         }
 
         public ActionResult About()

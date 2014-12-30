@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace asp_net_mvc_bootstrap.Models.Concrete
 {
-    public class Item : IEntity<int>
+    public class Item : TEntity<int>
     {
         public virtual string Name { get; set; }
         public virtual bool Done { get; set; }
