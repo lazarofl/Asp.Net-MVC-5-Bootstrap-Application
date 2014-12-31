@@ -4,6 +4,7 @@
 namespace asp_net_mvc_bootstrap.App_Start
 {
     using asp_net_mvc_bootstrap.Infrastructure.NHibernateConfiguration;
+    using asp_net_mvc_bootstrap.Infrastructure.UnitOfWork;
     using Microsoft.Web.Infrastructure.DynamicModuleHelper;
     using NHibernate;
     using Ninject;
@@ -63,6 +64,7 @@ namespace asp_net_mvc_bootstrap.App_Start
         {
             kernel.Bind<ISessionFactory>().ToProvider<NhibernateSessionFactoryProvider>().InSingletonScope();
             kernel.Bind<ISession>().ToMethod(context => context.Kernel.Get<ISessionFactory>().OpenSession()).InRequestScope();
+            kernel.Bind<IUnitOfWork>().To<UnitOfWork>().InRequestScope();
         }
     }
 }

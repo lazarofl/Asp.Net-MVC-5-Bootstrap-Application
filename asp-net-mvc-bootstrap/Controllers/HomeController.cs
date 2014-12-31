@@ -1,4 +1,5 @@
-﻿using asp_net_mvc_bootstrap.Models.Concrete;
+﻿using asp_net_mvc_bootstrap.Infrastructure.UnitOfWork;
+using asp_net_mvc_bootstrap.Models.Concrete;
 using NHibernate;
 using NHibernate.Linq;
 using System;
@@ -9,21 +10,26 @@ using System.Web.Mvc;
 
 namespace asp_net_mvc_bootstrap.Controllers
 {
-    public class HomeController : BaseController
+    public class HomeController : Controller
     {
-        public HomeController(ISession session)
-            : base(session)
-        {
+        IUnitOfWork unitOfWork;
 
+        public HomeController(IUnitOfWork _work)
+        {
+            this.unitOfWork = _work;
         }
 
         public ActionResult Index()
         {
             IList<Item> itens;
-            using (var transaction = session.BeginTransaction())
+
+            using (unitOfWork)
             {
-                itens = session.Query<Item>().ToList();
-                transaction.Commit();
+                var itensRepository = unitOfWork.GetRepository<Item>();
+
+                itens = itensRepository.All().ToList();
+
+                unitOfWork.Commit();
             }
 
             return View(itens);

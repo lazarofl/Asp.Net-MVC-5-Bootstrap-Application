@@ -1,4 +1,5 @@
 ﻿using asp_net_mvc_bootstrap.Infrastructure.Repository;
+using asp_net_mvc_bootstrap.Models;
 using NHibernate;
 using System;
 using System.Collections.Generic;
@@ -11,13 +12,14 @@ namespace asp_net_mvc_bootstrap.Infrastructure.UnitOfWork
     public class UnitOfWork : IUnitOfWork
     {
         private ITransaction _transaction;
-        private Dictionary<Type, object> _repositories;
 
         public ISession Session { get; private set; }
 
         public UnitOfWork(ISession _session)
         {
             Session = _session;
+            Session.FlushMode = FlushMode.Auto;
+            this.BeginTransaction();
         }
 
         public IRepository<TEntity> GetRepository<TEntity>() where TEntity : class

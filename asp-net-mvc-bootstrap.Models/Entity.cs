@@ -6,8 +6,8 @@ using System.Threading.Tasks;
 
 namespace asp_net_mvc_bootstrap.Models
 {
-    public abstract class TEntity<T>
+    public class Entity
     {
-        public virtual T Id { get; private set; }
+        public virtual int Id { get; private set; }
     }
 }

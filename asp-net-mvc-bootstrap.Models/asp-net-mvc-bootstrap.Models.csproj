@@ -50,7 +50,7 @@
   <ItemGroup>
     <Compile Include="Concrete\Item.cs" />
     <Compile Include="Mapping\ItemMap.cs" />
-    <Compile Include="TEntity.cs" />
+    <Compile Include="Entity.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
