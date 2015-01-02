@@ -23,9 +23,16 @@ namespace asp_net_mvc_bootstrap
                       "~/Scripts/bootstrap.js",
                       "~/Scripts/respond.js"));
 
-            bundles.Add(new StyleBundle("~/Content/css").Include(
+            var cssbundle = new StyleBundle("~/Content/css");
+            cssbundle.Include(
                       "~/Content/bootstrap.css",
-                      "~/Content/site.css"));
+                      "~/Content/site.css",
+                      "~/Content/less/*.less");
+            cssbundle.Transforms.Add(new LessTransform());
+
+            bundles.Add(cssbundle);
+
+            BundleTable.EnableOptimizations = true;
         }
     }
 }
