@@ -1,5 +1,6 @@
 ﻿using asp_net_mvc_bootstrap.Infrastructure.UnitOfWork;
 using asp_net_mvc_bootstrap.Models.Concrete;
+using Facebook;
 using NHibernate;
 using NHibernate.Linq;
 using System;
@@ -47,6 +48,18 @@ namespace asp_net_mvc_bootstrap.Controllers
             ViewBag.Message = "Your contact page.";
 
             return View();
+        }
+
+        public ActionResult UserInfo(string accessToken)
+        {
+            var client = new FacebookClient(accessToken);
+            dynamic result = client.Get("me", new { fields = "name,id" });
+
+            return Json(new
+            {
+                id = result.id,
+                name = result.name,
+            });
         }
     }
 }

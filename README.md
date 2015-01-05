@@ -7,6 +7,9 @@ This is a starter project using:
  - Less support using [dotLess](http://www.dotlesscss.org/)
  - CSS/JS Bundling and Minification
  - Mocking framework using [Moq](https://github.com/Moq/moq4)
+ - [FacebookSDK for .Net](http://facebooksdk.net/)
+ - [FacebookSDK for JavaScript](https://developers.facebook.com/docs/javascript)
+
     
 ##Project Structure
 
