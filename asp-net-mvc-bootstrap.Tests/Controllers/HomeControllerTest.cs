@@ -17,16 +17,17 @@ namespace asp_net_mvc_bootstrap.Tests.Controllers
     [TestClass]
     public class HomeControllerTest
     {
-        private IUnitOfWork GetUnitOfWorkMock()
-        {
-            IQueryable<Item> itens = new List<Item>{
+        IQueryable<Item> itens = new List<Item>{
                 new Item{ Id = 1, Name = "Item 1" },
                 new Item{ Id = 2, Name = "Item 2" },
-                new Item{ Id = 3, Name = "Item 3" }
+                new Item{ Id = 3, Name = "Item 3" },
+                new Item{ Id = 4, Name = "Item 4" }
             }.AsQueryable();
 
+        private IUnitOfWork GetUnitOfWorkMock()
+        {
             var repository_mock = new Mock<IRepository<Item>>();
-            repository_mock.Setup(x=>x.All()).Returns(itens);
+            repository_mock.Setup(x => x.All()).Returns(itens);
 
             var unitOfWork_mock = new Mock<IUnitOfWork>();
 
@@ -47,9 +48,10 @@ namespace asp_net_mvc_bootstrap.Tests.Controllers
             // Act
             ViewResult result = controller.Index() as ViewResult;
 
-            // Assert
-            Assert.IsNotNull(result);
+            var expected = 4;
+
+            Assert.AreEqual(expected, (result.Model as IList<Item>).Count);
         }
-       
+
     }
 }

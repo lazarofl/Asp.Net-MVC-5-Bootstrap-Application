@@ -22,9 +22,11 @@ namespace asp_net_mvc_bootstrap
             bundles.Add(new ScriptBundle("~/bundles/bootstrap").Include(
                       "~/Scripts/bootstrap.js",
                       "~/Scripts/respond.js"));
-           
+
             bundles.Add(new ScriptBundle("~/bundles/app").Include(
                         "~/Scripts/app/*.js"));
+            bundles.Add(new ScriptBundle("~/bundles/frameworks").Include(
+                        "~/Scripts/frameworks/*.js"));
 
             var cssbundle = new StyleBundle("~/Content/css");
             cssbundle.Include(
